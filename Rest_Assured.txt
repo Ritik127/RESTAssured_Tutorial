@@ -1,0 +1,266 @@
+<-----------------------------Rest Assured------------------>
+        <---------------Index--------------------->
+
+1.REST
+2.Rest Api
+3.Rest Architectural Elements
+
+4.Rest Assured
+5.Validate Response Status
+6.Validate Response Header
+7.Read JSON Response Body
+8.Query Parameters
+9.Maven Dependency
+10. how to confirm dependency are downloaded?
+
+11. Request Specification
+12. Get Method using RestAssured
+13. Post Method using RestAssured
+14. Media Type Attribute
+15. What does HTTP Response Contain?
+
+16. What is content type attribute in header?
+17. validate a substring present in the response
+18. What is JsonPath Online Evaluator - Jsonpath.com
+            ........................
+19. composition of url
+20. Authentication vs Authorization
+21. Authorization Header
+22. What are the Different Authentication Sceme?
+
+23. PUT method
+24. What is non-cacheable?
+25. PUT Vs POST Method
+26. Status code that we can Obtained From PUT Method.
+27. Status code that we Obtained From POST Method
+
+28. POST Method Through URL
+29. how to use PUT Method in RestAssured?
+30. Delete Response Code [3] = {202, 204, and 200}
+31. Body Data validation in RestAssured
+
+ <-----------------------Question---------------------->
+
+	Earlier, we were using dynamic languages such as groovy,
+ 	ruby to achieve this, and it was challenging.
+
+|Q1| What is Rest Assured? What we can Achieve From RestAssured ? Why We need RestAssured?
+
+Ans  * Java library acts like a headless client to act upon the Rest        web services.
+     * validating the HTTP responses from the server.
+     * REST APIs using java libraries and integrates well with        Maven. 
+
+|Q2| What are maven Dependency?
+
+Ans. maven-dependency = {json-path , xml-path , json-schema-validator ,rest-assured-all}
+     * for confirmation whether the dependency is downloaded or not
+	we can try to import the packages.
+
+|Q3| Syntax of RestAssured?
+
+	*Given() =‘Given’ keyword, lets you set a background, here,you pass the request headers, query 	and path ,param,body,cookies.
+
+	
+        * Method() Substitute this with any of the CRUD operations(get/post/put/delete)
+	* Then() Your assert and matcher conditions go here
+	* When()
+
+|Q4| What is Request Specification?
+Ans RequestSpecification is an interface and we can not create an     object of it
+
+http://makeseleniumeasy.com/2019/12/10/rest-assured-tutorial-14-interface-requestspecification-how-the-request-will-look-like/#:~:text=RequestSpecification%20is%20an%20interface%20that,get%20a%20reference%20for%20RequestSpecification.
+
+|Q5|
+Response response = RequestSpecification Object
+			.getStatusCode()
+			.getStatusline()
+			.getBody() ResponseBody body = response.getBody();
+
+			headers() [ iterate the loop to get all content]
+			header()={Content-type,server,Content-Encoding}
+				
+// finding is body conatain substring
+
+// To check for sub string presence get the Response body as a String.
+	// Do a String.contains
+	String bodyAsString = body.asString();
+
+	// convert the body into lower case and then do a comparison to ignore casing.
+	Assert.assertEquals(bodyAsString.toLowerCase().contains("hyderabad") /*Expected value*/, true /*Actual Value*/, "Response body contains Hyderabad");
+}
+
+//query parameter
+
+Response res = httpRequest.queryParam("ISBN","9781449325862").get("/Book");
+
+//authenticated api
+
+https://gorest.co.in/my-account/access-tokens
+reqres.in
+
+|Q6| How many Information We can fetch from the server by using the     GET Method?
+
+Ans Get [6] ={ Response , getStatusCode(), getStatusLine() , headers() ,getHeader() ,getHeaders() }
+
+|Q7| What Information should be need to Validate or Assert?
+
+Ans Assertion [3] = {Status-code ,Status-line , Response Header,SubString }
+
+|Q8| What we can fetch from Response Header?
+
+Ans header[3] ={Content-type , Server ,Content-Encoding}
+
+|Q9| how many ways in RestAssured to Fetch Response?
+
+Ans * Response.body() : returns ResponseBody
+    * Response.getBody() : returns ResponseBody
+
+|Q10| How many way's we can response the Response in another format ?
+
+Ans 
+
+|Q11| Data Type in Rest Assured?
+
+Ans Data_Type[] = { ResponseBody , Response , Headers }
+
+|Q12| Why we should declare RestAssured or import "io.restassured.RestAssured"
+
+Ans  *	It generates HTTP Requests with a base URI.
+     *	Provides support to create Requests for different HTTP method types (GET, POST, PUT, PATCH, DELETE, UPDATE, HEAD, and OPTIONS).
+     *	It communicates with the server using HTTP and sends the Request created in the tests to the server.
+     *	Receives the response from the server.
+     *	Provides support for validating the Response received from the server.
+
+|Q13| What is Media-Type Attribute ?
+
+ans 	As we already know the same REST API returns a response message in XML or JSON format.
+        This format depends on the Media-Type attribute in the HTTP request.
+
+|Q14| What Does Http Resopnse Packet Contain?
+
+ans HTTP_packet[] ={ A status, Collection of Headers , A Body}
+
+|Q15| what is Content-type Attribute in Header?
+
+ans 	 But then how will the client know what type of response it will get from the API? Well, 
+  	 this is managed by the response headers.
+	 Response Header contains a Content-Type attribute that informs about the type of response body format.
+
+|Q16| Till now we have read header content & Response code 
+	Now We want to read Read Response body, How we will Read Response Body ?
+ans 
+
+|Q17| What is Json Evaluator and how we can use ?
+
+ans it is use to extract the response of the node
+	// First get the JsonPath object instance from the Response interface
+	JsonPath jsonPathEvaluator = response.jsonPath();
+
+	// Then simply query the JsonPath object to get a String value of the node
+	// specified by JsonPath: City (Note: You should not put $. in the Java code)
+	String city = jsonPathEvaluator.get("City");
+
+	// Let us print the city variable to see what we got
+	System.out.println("City received from Response " + city);
+
+|Q18| Difference between Authorization & Authentication
+
+ans     Authentication - process for verifying the user 
+	Authorization - process for verify whether the user have right to access or not .
+
+|Q19| What is Authorization Header?
+
+ans 	this header can contain the credentials (username and password) in some form.
+	 Once a request with Authorization Header is received, 
+	the server can validate the credentials and can let you access the private resources.
+
+|Q20| What are different authentication scemes ?
+
+ans  Basic_Authentication[] = { Preemptive Authentication ,Digest Authentication,Form Authentication ,OAuth Authentication ,OAuth1 ,OAuth2 }
+
+|Q21| What is PUT Method ?
+
+ans  The official HTTP RFC specifies:
+	* A PUT method puts or places a file or resource precisely at a specific URI.
+	*In case a file or a resource already exists at that URI, the PUT method replaces that file or resource.
+	*If there is no file or resource, PUT creates a new one.
+	*Responses to the PUT method are non-cacheable.
+	*PUT requests usually respond back with status code 200.
+
+ |Q22| What is Non-Cacheable ?
+
+ ans    * Dynamic information that changes regularly or for each user request and serves no purpose if it were cached. 
+	* Web pages that return the results of a search are non-cacheable, because their contents are unique almost all the time. 
+
+ |Q23| What does cacheable mean in rest?
+
+  ans  Caching refers to storing the server response in the client itself, 
+	so that a client need not make 	a server request for the same resource again and again.
+
+ |Q24| What does  idempotent Mean ?
+ 
+  ans 	 an operation is idempotent if it produces the same result when called over and over.
+	 An identical request should return an identical result when done twice, two thousand,
+	 or two million times
+	
+ |Q25| Difference Between PUT & POST Method?
+
+ |Q26| POST Method through URL?
+ 
+ ans   https://reqres.in/api/users?email=xyz&firstname=xyz
+ 
+ |Q27| PUT Method Through URL
+ 
+  ans  https://reqres.in/api/users/id=868?email=wxy
+
+ |Q28| Status code we can Obtained From PUT & POST method?
+
+ ans POST request
+
+	*201 with a location header pointing to the new resource.
+	*400 if the new item is not created.
+
+     PUT request
+
+	*204 for OK/SUCCESS (but no content).
+	*200 for OK with Content Body (Updated response).
+	*400 if the data sent was invalid.
+
+ |Q29| What We Will Validate in After Sending POST & PUT Request?
+	
+  ans We Will Validate Response code & Response Status.
+
+ |Q30| Step to send a POST & PUT request in RestAssured?
+
+ ans 	*Create JSON data using a simple JSON library.
+	*Send JSON content in the body of the request.
+	*Validate the response. 
+
+  |Q31| How to tell server Authorization key & in which format of data you are sending ?
+  
+  ans  RestAssured.baseURI = baseUrl;
+       RequestSpecification httpRequest = RestAssured.given()
+        .header("Authorization", "Bearer " + token)
+        .header("Content-Type", "application/json");
+
+  |Q32| How to send PUT Method ?
+  
+   ans Response res = httpRequest.body("{ \"isbn\": \"" + isbn + "\", \"userId\": \"" + userId + "\"}").put("/BookStore/v1/Book/9781449325862");
+
+  |Q33| HOW to send Delete Request?
+
+   ans //Calling the Delete API with request body
+      Response res = httpRequest.body("{ \"isbn\": \"" + isbn + "\", \"userId\": \"" + userId + "\"}").delete("/BookStore/v1/Book");
+
+  |Q34| About Delete Method
+
+   ans 	*The "delete" method deletes a resource from the server. It is quite similar to the rm UNIX 	command.
+	*The deletion of a resource is based on the server implementation and the response received is 	non-cacheable.
+	*The delete request returns any of the three types of response codes, i.e., 202, 204, and 200.
+	*The delete() method used with "path" or "pathParams" deletes the request.
+	*To verify the deletion, you may use assertion or any other relevant code as required.
+
+ |Q35| How to validate API Body in RestAssured?
+	
+
+ 
