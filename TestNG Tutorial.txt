@@ -1,0 +1,200 @@
+              <------------------TestNG------------------->
+  <--------------Index-------------------------->
+1.TestNG Introduction
+2.Install TestNG
+3.TestNG Test
+4.TestNG Test Suite
+5.TestNG Annotations
+
+6.TestNG Groups
+7.TestNG Dependent Tests
+8.TestNG Reports
+9.TestNG Parameters
+10.TestNG DataProviders
+
+11.TestNG Test Priority
+12.TestNG Reporter Log
+13.TestNG Asserts
+14.TestNG Cross Browser Testing
+15.TestNG Data Provider with Excel
+
+16.TestNG Parallel Execution
+17.TestNG Listeners
+18.Retry Failed Tests in TestNG
+19.Implement IRetryAnalyzer
+20.TestNG Vs JUnit
+
+
+<------------------------------Questions / Answer -------------------->
+|Q1| How To Create A TestNG Class In Eclipse?
+
+|Q2| What is a Test Suite?
+ans    * the collection of TestNG Tests together is called a Test Suite
+	* A test suite can run multiple tests at once by executing the test suite.
+	 *Additionally, these test cases can be dependent on each other or may have to be executed in a             specific order independently.
+	
+|Q3| What does TestNg.xml file contain ?
+ans     <suite> - The suite tag can be given any name and denotes the test suite name.
+	<test> - The test tag can be given any name and indicates your test sets.
+	<classes> - This is the combination of your package name and test case name and cannot write          anything else.
+
+|Q4| What Are TestNG Annotations?
+ans     * to control the flow of the execution of tests.
+	* TestNG will ignore the method which does not contain an annotation since it won't know when to           execute this method.
+
+|Q5| Why Use Annotations?
+ans	  Easy To Learn , Can Be Parameterized ,Strongly Typed ,No Need To Extend Any Class 
+
+|Q6| Hierarchy In TestNG Annotations ?
+ans  @BeforeSuite
+     @BeforeTest
+     @BeforeClass
+ 	@BeforeMethod
+	@Test
+	@AfterMethod
+	@AfterClass
+	@AfterTest
+	@AfterSuite
+
+|Q7| Test Priority in TestNG ? TestNG Test Case With and Without Priority
+ans	@Test(priority=1)
+
+|Q8| Can we use parameters in TestNG Annotations?
+ans     @Parameters({ "suite-param" })
+        @Test
+        public void prameterTestOne(String param) {}
+
+|Q9| What Are TestNG Groups?
+ans   *TestNG groups combine the tests into groups and 
+      *let the tester choose which ones to run and which ones to ignore. 
+      * we learned how TestNG decides which test to run first and which one to run next. 
+	This tutorial is in the continuation of the previous one.
+      * It does not even matter if they belong to different classes.
+
+	<suite name="test_suite">  
+  	<groups>  
+        <run>  
+         <include name="demo"/>  
+        </run>  
+        </groups>  
+        <test name="Check Login Page">  
+        <classes>
+	
+	Example:-
+	@Test(groups = { "demo" }) 	
+   	 public void checkTitle() {}	
+	@Test(groups = { "demo" })	
+         public void click_element() {}
+	
+|Q10| TestNG Groups Inside Groups?
+ans	TestNG provides the flexibility of providing groups inside another group and running them according to your needs. We can term them "nested groups",
+		<suite name="Test-Suite" >
+   <test name="ToolsQA" >
+   		<groups>
+   		<define name = "SuperGroup">
+   			<include name = "demo"></include>
+   		</define>
+   		<run>
+   			<include name = "SuperGroup"></include>
+   		</run>
+   		</groups>
+       		<classes> 
+
+|Q11| How To Ignore (Exclude) a group in TestNG?
+ans    we can ignore the groups by putting them under the "exclude" tag.
+			<run>
+   			<exclude name = "demo">
+   			</exclude>
+   			</run>
+
+|Q12| How To Use Regular Expressions With TestNG Groups?
+ans     we can just define a generalised pattern which is there inside more than one groups 
+	so that we do not need to write the complete group names.
+	To find this, we have changed the group name to demo1 and demo2 for
+			<run>
+   			<include name = "demo.*">
+   			</include>
+   			</run>
+
+|Q13| What Are Dependent Test In TestNG?
+ans  	 We may use the priority parameter for that,
+	 no doubt, but priority will run all the cases without looking for the relationship we want to 	 define (alphabetically for the same priority).
+ 	 The dependent tests in TestNG determine the dependency of a test on a single or group of tests.
+
+|Q14| How To Use dependsOn attribute in TestNG?
+ans     @Test (dependsOnMethods = { "OpenBrowser" })
+        public void SignIn() {}
+	@Test
+ 	public void OpenBrowser() {}
+
+|Q15| Multiple Dependent Tests In TestNG ?
+ans	  @Test(dependsOnMethods = { "SignIn", "OpenBrowser" })
+           public void LogOut() {}
+
+|Q16| Inherited Dependent Test Methods In TestNG ?
+ans   public class InheritedDependencyTest extends SuperClass {}
+
+	*In inherited dependent test methods in TestNG,
+ 	we create dependency among the methods that belong to different classes,
+ 	and one of the classes inherits the functionalities of another class.
+
+|Q17| What is Inheritance ?Why We need inherit the code ?What was before Inheritance ? how we was managing our code before Inheritance ?
+
+ans Dependency- if some function is dependent or should be executed before or with , then we can co-relate  inheritance.
+ans
+
+|Q18| What Are Group Dependent Test?
+ans    * creating dependencies in multiple tests, 
+	we have to write each test name separately manually.
+
+	 @Test(dependsOnGroups = { "SignIn" })
+    	 public void ViewAcc() {}
+	 @Test(groups = { "SignIn" })
+    	 public void OpenBrowser() {}
+
+|Q19| how to write Group Dependent Test In XML file?
+ 
+ ans 
+   		<groups>
+   		<dependencies>
+   			<group depends-on= "openbrowser" name= "login"></group>
+   			<group depends-on= "login" name= "viewaccount"></group>
+   			<group depends-on= "viewaccount" name= "logout"></group>
+   		</dependencies>
+   		</groups>
+       		<classes> 
+
+|Q20| What are the two ways to generate a report in TestNG?
+ans
+|Q21| We can generate the TestNG reports in two ways:
+
+	Emailable Reports
+	Index Reports
+ans
+|Q22| Difference between Error and Exception ?
+ans     An Error "indicates serious problems that a reasonable application should not try to catch."
+	An Exception "indicates conditions that a reasonable application might want to catch."
+
+|Q23| Different Exceptions in Selenium ?
+ans   Most common Exceptions:
+
+1) NoSuchElementException : FindBy method can’t find the element.
+
+2) StaleElementReferenceException : This tells that element is no longer appearing on the DOM page.
+
+3) TimeoutException: This tells that the execution is failed because the command did not complete in enough time.
+
+4) ElementNotVisibleException: Thrown to indicate that although an element is present on the DOM, 
+it is not visible, and so is not able to be interacted with
+
+5) ElementNotSelectableException: Thrown to indicate that may be the element is disabled, 
+and so is not able to select.
+
+|Q24| What is an Object Repository in Selenium?
+ans   An object repository is a centralized storage of locators in the form of objects. QAs store all the element locators in a separate file, also referred to as a property file (.properties) in Selenium. The property file stores information in a key-value pair format.
+ *QAs can also store these objects in XML files depending on the framework being used.
+
+|Q25| How to create a Properties file and add data ?
+ans  * Right-click on Project folder > New > Other> General > File
+     * Click Next and then name the file (example: demo_repo.properties) and then click on Finish.
+|Q26| What is Page Factory in Selenium?	
